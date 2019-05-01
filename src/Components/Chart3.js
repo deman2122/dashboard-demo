@@ -71,7 +71,6 @@ class Chart3 extends Component {
       years = [];
     let initialOptions = {};
     let p0sum = [];
-    let p1sum = [];
     fetch('/data.json')
       .then(res => res.json())
       .then(data => {
@@ -80,14 +79,14 @@ class Chart3 extends Component {
 
         for (let i = 0; i < fetchedArray.length; i++) {
           let y = Object.values(fetchedArray[i][0]);
-          let sum0 = 0;
-          let sum1 = 0;
+          let sum0Closed = 0;
+          let sum0Total = 0;
           for (let j = 0; j < y.length; j++) {
-            sum0 += y[j].P0;
-            sum1 += y[j].P1;
+            sum0Closed += y[j].P0 - y[j].P0Open;
+            sum0Total += y[j].P0;
             if (j === y.length - 1) {
-              p0sum.push(sum0);
-              p1sum.push(sum1);
+              let per = (sum0Closed * 100) / sum0Total;
+              p0sum.push(per);
             }
           }
         }
@@ -97,19 +96,20 @@ class Chart3 extends Component {
             type: 'spline'
           },
           title: {
-            text: 'P0 and P1'
+            text: '% within SLA by P0'
           },
           xAxis: {
             categories: years
           },
           yAxis: {
             title: {
-              text: 'Incidents Raised'
+              text: 'Percentage'
             }
           },
           tooltip: {
             crosshairs: true,
-            shared: true
+            shared: true,
+            valueDecimals: 2
           },
           plotOptions: {
             spline: {
@@ -123,17 +123,7 @@ class Chart3 extends Component {
           series: [
             {
               name: 'P0',
-              marker: {
-                symbol: 'square'
-              },
               data: p0sum
-            },
-            {
-              name: 'P1',
-              marker: {
-                symbol: 'diamond'
-              },
-              data: p1sum
             }
           ]
         };
@@ -166,35 +156,21 @@ class Chart3 extends Component {
 
     const y = Object.values(fetchedArray[index][0]);
 
-    const P0 = y.map(item => item.P0);
-    const P1 = y.map(item => item.P1);
+    const P0 = y.map(item => ((item.P0 - item.P0Open) / item.P0) * 100);
 
     const newOptions = {
       chart: {
         type: 'spline'
       },
       title: {
-        text: 'P0 and P1'
+        text: '% within SLA by P0'
       },
       xAxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec'
-        ]
+        categories: ['Jan', '', '', '', '', '', '', '', '', '', '', 'Dec']
       },
       yAxis: {
         title: {
-          text: 'Incidents Raised'
+          text: 'Percentage'
         }
       },
       tooltip: {
@@ -213,17 +189,7 @@ class Chart3 extends Component {
       series: [
         {
           name: 'P0',
-          marker: {
-            symbol: 'square'
-          },
           data: P0
-        },
-        {
-          name: 'P1',
-          marker: {
-            symbol: 'diamond'
-          },
-          data: P1
         }
       ]
     };

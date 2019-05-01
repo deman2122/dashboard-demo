@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-class Chart2 extends Component {
+class Chart4 extends Component {
   state = {
     fetchedArray: [],
     options: {
       chart: {
-        type: 'column'
+        type: 'spline'
       },
       title: {
-        text: 'Trend of Open Issues'
+        text: 'P0 and P1'
       },
       xAxis: {
         categories: [
@@ -30,31 +30,35 @@ class Chart2 extends Component {
       },
       yAxis: {
         title: {
-          text: 'No. of open incidents'
+          text: 'Incidents Raised'
         }
       },
       tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat:
-          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
+        crosshairs: true,
+        shared: true
       },
       plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
+        spline: {
+          marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+          }
         }
       },
       series: [
         {
           name: 'P0',
+          marker: {
+            symbol: 'square'
+          },
           data: []
         },
         {
           name: 'P1',
+          marker: {
+            symbol: 'diamond'
+          },
           data: []
         }
       ]
@@ -79,8 +83,8 @@ class Chart2 extends Component {
           let sum0 = 0;
           let sum1 = 0;
           for (let j = 0; j < y.length; j++) {
-            sum0 += y[j].P0Open;
-            sum1 += y[j].P1Open;
+            sum0 += y[j].P0;
+            sum1 += y[j].P1;
             if (j === y.length - 1) {
               p0sum.push(sum0);
               p1sum.push(sum1);
@@ -90,42 +94,45 @@ class Chart2 extends Component {
 
         initialOptions = {
           chart: {
-            type: 'column'
+            type: 'spline'
           },
           title: {
-            text: 'Trend of Open Issues'
+            text: 'P0 and P1'
           },
           xAxis: {
             categories: years
           },
           yAxis: {
             title: {
-              text: 'No. of open incidents'
+              text: 'Incidents Raised'
             }
           },
           tooltip: {
-            headerFormat:
-              '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat:
-              '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-              '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
+            crosshairs: true,
+            shared: true
           },
           plotOptions: {
-            column: {
-              pointPadding: 0.2,
-              borderWidth: 0
+            spline: {
+              marker: {
+                radius: 4,
+                lineColor: '#666666',
+                lineWidth: 1
+              }
             }
           },
           series: [
             {
               name: 'P0',
+              marker: {
+                symbol: 'square'
+              },
               data: p0sum
             },
             {
               name: 'P1',
+              marker: {
+                symbol: 'diamond'
+              },
               data: p1sum
             }
           ]
@@ -159,15 +166,15 @@ class Chart2 extends Component {
 
     const y = Object.values(fetchedArray[index][0]);
 
-    const P0 = y.map(item => item.P0Open);
-    const P1 = y.map(item => item.P1Open);
+    const P0 = y.map(item => item.P0);
+    const P1 = y.map(item => item.P1);
 
     const newOptions = {
       chart: {
-        type: 'column'
+        type: 'spline'
       },
       title: {
-        text: 'Trend of Open Issues'
+        text: 'P0 and P1'
       },
       xAxis: {
         categories: [
@@ -187,31 +194,35 @@ class Chart2 extends Component {
       },
       yAxis: {
         title: {
-          text: 'No. of open incidents'
+          text: 'Incidents Raised'
         }
       },
       tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat:
-          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
+        crosshairs: true,
+        shared: true
       },
       plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
+        spline: {
+          marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+          }
         }
       },
       series: [
         {
           name: 'P0',
+          marker: {
+            symbol: 'square'
+          },
           data: P0
         },
         {
           name: 'P1',
+          marker: {
+            symbol: 'diamond'
+          },
           data: P1
         }
       ]
@@ -238,4 +249,4 @@ class Chart2 extends Component {
   }
 }
 
-export default Chart2;
+export default Chart4;

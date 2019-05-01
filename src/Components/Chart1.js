@@ -10,7 +10,7 @@ class Chart1 extends Component {
         type: 'spline'
       },
       title: {
-        text: 'P0 and P1'
+        text: 'Volume of P0/P1 by month'
       },
       xAxis: {
         categories: [
@@ -97,7 +97,7 @@ class Chart1 extends Component {
             type: 'spline'
           },
           title: {
-            text: 'P0 and P1'
+            text: 'Volume of P0/P1 by month'
           },
           xAxis: {
             categories: years
@@ -174,7 +174,7 @@ class Chart1 extends Component {
         type: 'spline'
       },
       title: {
-        text: 'P0 and P1'
+        text: 'Volume of P0/P1 by month'
       },
       xAxis: {
         categories: [

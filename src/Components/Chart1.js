@@ -242,8 +242,8 @@ class Chart1 extends Component {
             <option key={year}>{year}</option>
           ))}
         </select>
-
         <HighchartsReact highcharts={Highcharts} options={options} />
+        hey
       </div>
     );
   }

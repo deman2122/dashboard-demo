@@ -243,7 +243,6 @@ class Chart1 extends Component {
           ))}
         </select>
         <HighchartsReact highcharts={Highcharts} options={options} />
-        hey
       </div>
     );
   }

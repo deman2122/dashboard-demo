@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import PropTypes from 'prop-types';
+require('highcharts/modules/exporting')(Highcharts);
+require('highcharts/modules/offline-exporting')(Highcharts);
+require('highcharts/modules/export-data')(Highcharts);
 
 class ChartDisplay extends Component {
   render() {
     const { options, years, handleChange } = this.props;
+
     return (
       <div>
         <select onChange={handleChange}>

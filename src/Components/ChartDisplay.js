@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import PropTypes from 'prop-types';
@@ -7,11 +7,16 @@ require('highcharts/modules/offline-exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 
 class ChartDisplay extends Component {
+  constructor() {
+    super();
+    this.chartComponent = React.createRef();
+  }
+
   render() {
     const { options, years, handleChange } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <select onChange={handleChange}>
           <option>All</option>
           {years.map(year => (
@@ -20,8 +25,12 @@ class ChartDisplay extends Component {
             </option>
           ))}
         </select>
-        <HighchartsReact highcharts={Highcharts} options={options} />
-      </div>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={options}
+          ref={this.chartComponent}
+        />
+      </Fragment>
     );
   }
 }

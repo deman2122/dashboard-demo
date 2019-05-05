@@ -89,82 +89,82 @@ class Chart1 extends Component {
     const { years } = this.state;
     const dropDownOption = e.target.value;
     let index = 0;
-    console.log(dropDownOption);
+
     if (dropDownOption === 'All') {
       this.initialRender();
-    }
+    } else {
+      for (let i = 0; i < years.length; i++) {
+        if (years[i] === dropDownOption) index = i;
+      }
 
-    for (let i = 0; i < years.length; i++) {
-      if (years[i] === dropDownOption) index = i;
-    }
+      const y = Object.values(values[index][0]);
 
-    const y = Object.values(values[index][0]);
+      const P0 = y.map(item => item.P0);
+      const P1 = y.map(item => item.P1);
 
-    const P0 = y.map(item => item.P0);
-    const P1 = y.map(item => item.P1);
-
-    const newOptions = {
-      chart: {
-        type: 'spline'
-      },
-      title: {
-        text: 'Volume of P0/P1 by month'
-      },
-      xAxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec'
-        ]
-      },
-      yAxis: {
-        title: {
-          text: 'Incidents Raised'
-        }
-      },
-      tooltip: {
-        crosshairs: true,
-        shared: true
-      },
-      plotOptions: {
-        spline: {
-          marker: {
-            radius: 4,
-            lineColor: '#666666',
-            lineWidth: 1
-          }
-        }
-      },
-      series: [
-        {
-          name: 'P0',
-          marker: {
-            symbol: 'square'
-          },
-          data: P0
+      const newOptions = {
+        chart: {
+          type: 'spline'
         },
-        {
-          name: 'P1',
-          marker: {
-            symbol: 'diamond'
+        title: {
+          text: 'Volume of P0/P1 by month'
+        },
+        xAxis: {
+          categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+          ]
+        },
+        yAxis: {
+          title: {
+            text: 'Incidents Raised'
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+            }
+          }
+        },
+        series: [
+          {
+            name: 'P0',
+            marker: {
+              symbol: 'square'
+            },
+            data: P0
           },
-          data: P1
-        }
-      ]
-    };
+          {
+            name: 'P1',
+            marker: {
+              symbol: 'diamond'
+            },
+            data: P1
+          }
+        ]
+      };
 
-    this.setState({
-      options: newOptions
-    });
+      this.setState({
+        options: newOptions
+      });
+    }
   };
   render() {
     const { options, years } = this.state;

@@ -88,75 +88,76 @@ class Chart2 extends Component {
     console.log(dropDownOption);
     if (dropDownOption === 'All') {
       this.initialRender();
-    }
+    } else {
+      for (let i = 0; i < years.length; i++) {
+        if (years[i] === dropDownOption) index = i;
+      }
 
-    for (let i = 0; i < years.length; i++) {
-      if (years[i] === dropDownOption) index = i;
-    }
+      const y = Object.values(values[index][0]);
 
-    const y = Object.values(values[index][0]);
+      const P0Open = y.map(item => item.P0Open);
+      const P1Open = y.map(item => item.P1Open);
 
-    const P0Open = y.map(item => item.P0Open);
-    const P1Open = y.map(item => item.P1Open);
-
-    const newOptions = {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Trend of Open Issues'
-      },
-      xAxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec'
-        ]
-      },
-      yAxis: {
-        title: {
-          text: 'No. of open incidents'
-        }
-      },
-      tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat:
-          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'P0',
-          data: P0Open
+      const newOptions = {
+        chart: {
+          type: 'column'
         },
-        {
-          name: 'P1',
-          data: P1Open
-        }
-      ]
-    };
+        title: {
+          text: 'Trend of Open Issues'
+        },
+        xAxis: {
+          categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+          ]
+        },
+        yAxis: {
+          title: {
+            text: 'No. of open incidents'
+          }
+        },
+        tooltip: {
+          headerFormat:
+            '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+          }
+        },
+        series: [
+          {
+            name: 'P0',
+            data: P0Open
+          },
+          {
+            name: 'P1',
+            data: P1Open
+          }
+        ]
+      };
 
-    this.setState({
-      options: newOptions
-    });
+      this.setState({
+        options: newOptions
+      });
+    }
   };
   render() {
     const { options, years } = this.state;

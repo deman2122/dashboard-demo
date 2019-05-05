@@ -93,61 +93,61 @@ class Chart3 extends Component {
     console.log(dropDownOption);
     if (dropDownOption === 'All') {
       this.initialRender();
-    }
+    } else {
+      for (let i = 0; i < years.length; i++) {
+        if (years[i] === dropDownOption) index = i;
+      }
 
-    for (let i = 0; i < years.length; i++) {
-      if (years[i] === dropDownOption) index = i;
-    }
+      const y = Object.values(values[index][0]);
 
-    const y = Object.values(values[index][0]);
+      const P0 = y.map(item => ((item.P0 - item.P0Open) / item.P0) * 100);
+      const P1 = y.map(item => ((item.P1 - item.P1Open) / item.P1) * 100);
 
-    const P0 = y.map(item => ((item.P0 - item.P0Open) / item.P0) * 100);
-    const P1 = y.map(item => ((item.P1 - item.P1Open) / item.P1) * 100);
-
-    const newOptions = {
-      chart: {
-        type: 'spline'
-      },
-      title: {
-        text: '% within SLA by P0 and P1'
-      },
-      xAxis: {
-        categories: ['Jan', '', '', '', '', '', '', '', '', '', '', 'Dec']
-      },
-      yAxis: {
-        title: {
-          text: 'Percentage'
-        }
-      },
-      tooltip: {
-        crosshairs: true,
-        shared: true,
-        valueDecimals: 2
-      },
-      plotOptions: {
-        spline: {
-          marker: {
-            radius: 4,
-            lineColor: '#666666',
-            lineWidth: 1
-          }
-        }
-      },
-      series: [
-        {
-          name: 'P0',
-          data: P0
+      const newOptions = {
+        chart: {
+          type: 'spline'
         },
-        {
-          name: 'P1',
-          data: P1
-        }
-      ]
-    };
+        title: {
+          text: '% within SLA by P0 and P1'
+        },
+        xAxis: {
+          categories: ['Jan', '', '', '', '', '', '', '', '', '', '', 'Dec']
+        },
+        yAxis: {
+          title: {
+            text: 'Percentage'
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true,
+          valueDecimals: 2
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+            }
+          }
+        },
+        series: [
+          {
+            name: 'P0',
+            data: P0
+          },
+          {
+            name: 'P1',
+            data: P1
+          }
+        ]
+      };
 
-    this.setState({
-      options: newOptions
-    });
+      this.setState({
+        options: newOptions
+      });
+    }
   };
   render() {
     const { options, years } = this.state;
